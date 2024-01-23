@@ -1,0 +1,35 @@
+michal@michal:~/pythongit$ cd cypress
+michal@michal:~/pythongit/cypress$ npm init                                         # iniciujemy cypress
+
+            package name: (cypress) cypress-project                                 # przechodzimy przez konfiguracje (wybieramy odpowiednie opcje)
+            version: (1.0.0) 
+            description: automatyzacja testow w cypress
+            entry point: (index.js) 
+            test command: 
+            git repository: 
+            keywords: automatyzacja,cypress,testy,test
+            author: Michał Grabarz
+            license: (ISC) 
+            About to write to /home/michal/pythongit/cypress/package.json:
+
+            {
+            "name": "cypress-project",
+            "version": "1.0.0",
+            "description": "automatyzacja testow w cypress",
+            "main": "index.js",
+            "scripts": {
+                "test": "echo \"Error: no test specified\" && exit 1"
+            },
+            "keywords": [
+                "automatyzacja",
+                "cypress",
+                "testy",
+                "test"
+            ],
+            "author": "Michał Grabarz",
+            "license": "ISC"
+            }
+            Is this OK? (yes) yes
+
+michal@michal:~/pythongit/cypress$ npm install cypress --save-dev                   # instalujemy cypress   
+michal@michal:~/pythongit/cypress$ npx cypress open                                 # otwieramy kreatora do zainicjowania projektu
