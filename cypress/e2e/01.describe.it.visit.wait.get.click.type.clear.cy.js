@@ -39,7 +39,21 @@ describe("Testy strony http://www.automationpractice.pl/", () =>{           // b
         cy.wait(1000);
     })
 
-    it("Zaznaczanie grupycheckboxów w zakładce Women", () => {                                                                
-        cy.get('#ul_layered_id_attribute_group_1 input').check();                                                                  
+    it("Zaznaczanie/odznaczenie grupy checkboxów w zakładce Women", () => {                                                                
+        cy.get('#ul_layered_id_attribute_group_1 input').check();
+        cy.wait(1000);
+        cy.get('#ul_layered_id_attribute_group_1 input').uncheck();
+        cy.wait(1000);                                                                  
+    })
+
+    it("Test związany z wybieraniem select w zakładce Women", () => {                                                                
+        cy.get('#selectProductSort').select("In stock");                                                                 
+        cy.wait(3000);
+        cy.get('#selectProductSort').select("--");
+        cy.wait(1000);
+        cy.get('#selectProductSort').select("name:asc");               
+        cy.wait(3000);  
+        cy.get('#selectProductSort').select("position:asc");
+        cy.wait(1000);
     })
 })                    
