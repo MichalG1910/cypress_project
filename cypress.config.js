@@ -11,7 +11,7 @@ module.exports = defineConfig({
       "runMode": 1,                                             // testy uruchamiane w tle będą ponawiane 1 raz
       "openMode": 1                                             // tryb z dodatkowym ekranikiem będzie ponawiany 1 raz
     },
-    watchForFileChanges: true,                                  // jeśli dokonamy zmian w plikach w trakcie testu, cypress automatycznie uruchomi ponownie test już ze zmianami 
+    watchForFileChanges: false,                                  // jeśli dokonamy zmian w plikach w trakcie testu, cypress automatycznie uruchomi ponownie test już ze zmianami 
     chromeWebSecurity: false,                                   // wyłączamy ochronę przed pracą na nieszyfrowanych stronach (może wyrzucać błędy, jeśli tego nie zrobimy)
     viewportWidth: 1920,
     viewportHeight: 1080,                                       // szerokość,wyskokośćokna przeglądarki w trakcie testów

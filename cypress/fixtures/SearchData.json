@@ -1,3 +1,10 @@
 {
-"searchPhrase": "przykładowy tekst"  
+"searchPhrase": "przykładowy tekst",
+"searchPhrasePrintedDress": "printed dress",
+"noFoundProduct": "No results",
+"selectOptionInStock": "In stock", 
+"selectOptionQuantity": "quantity:desc", 
+"selectOptionMinMin": "--", 
+"selectOptionPosition": "position:asc", 
+"selectOptionName": "name:asc"
 }

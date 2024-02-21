@@ -4,7 +4,11 @@
 import Base from "../pageObjectModel/Base";                                         // importujemy klasę Base z lokalizacji "../pageObjectModel/Base"
 import Home from "../pageObjectModel/Home";                                         // importujemy klasę Home z lokalizacji "../pageObjectModel/Home"
 import Women from "../pageObjectModel/Women";                                       // importujemy klasę Women z lokalizacji "../pageObjectModel/Women" 
-import Search from "../pageObjectModel/Search";
+import Search from "../pageObjectModel/Search";                                     // importujemy klasę Search z lokalizacji "../pageObjectModel/Search"
+import ResultPage from "../pageObjectModel/ResultPage";                             // importujemy klasę ResultPage z lokalizacji "../pageObjectModel/ResultPage"
+import Select from "../pageObjectModel/Select";                                     // importujemy klasę Select z lokalizacji "../pageObjectModel/Select"
+import { searchPhrase } from "../fixtures/SearchData.json"                          // importujemy wzorcowy tekst z pliku SearchData.json znajdujacego sie w katalogu fixtures
+import { searchPhrasePrintedDress, noFoundProduct, selectOptionInStock, selectOptionQuantity, selectOptionMinMin, selectOptionPosition, selectOptionName } from "../fixtures/SearchData.json"   // w jednym imporcie mozna zawrzec wiecej wzorców
 
 describe("Testy strony http://www.automationpractice.pl/", () =>{           
     it("Wejście na stronę, kliknięcie w zakładkę Contact us", () => {       
@@ -20,14 +24,17 @@ describe("Testy strony http://www.automationpractice.pl/", () =>{
         Base.openHomePage();
         Base.waitShort();                                                      
         Search.typeSearchPhrase();              
-        cy.get('#search_query_top').should("have.value", "przykładowy tekst");      
+        Search.searchBox.should("have.value", searchPhrase);                 // tu dla przykładu uzyłem gettera searchBox z klasy Search i zastosowałem na nim metodę should("have.value", searchPhrase)
         Base.waitShort();
+        Search.clearSearchPhrase();
+        Search.typeSearchPhraseWithVariable(searchPhrase)                           // korzystamy z klasy Search i dla przykładu do tej funkcji przekazujemy zmienna (konstrukcja funkcji jest inna niż tradycyjnej - patrz plik Search.js)
+        Base.waitShort();                                                           // zmienną tą jest wzorcowy tekst z SearchData.json. Może to być też dowolny strin wpisany z reki np. "jakiś tekst"
         Search.clearSearchPhrase();                               
         Base.waitShort();
-        Search.searchBox.type("printed dress{enter}");                              // tu dla przykładu uzyłem gettera searchBox z klasy Search i zastosowałem na nim metodę type("printed dress{enter}")    
+        Search.typeSearchPhraseWithVariable(`${searchPhrasePrintedDress}{enter}`);  // tu dla przykładu do funkcji przekazujemy wzorcowy tekst z pliku SearchData.json i potwierdzamy przyciskiem {enter}    
         Base.waitShort();                                                      
         cy.url().should("include", "controller=search&orderby=position&orderway=desc&search_query=printed+dress&submit_search=");    
-        cy.get('img[alt="My Shop"').click();
+        cy.get('img[alt="My Shop"]').click();
         Base.waitShort(); 
     })
 
@@ -61,17 +68,17 @@ describe("Testy strony http://www.automationpractice.pl/", () =>{
     })
 
     it("Test związany z wybieraniem select w zakładce Women", () => {                                                                
-        cy.get('#selectProductSort').select("In stock");
-        cy.get('#selectProductSort').should("have.value", "quantity:desc");                                                                       
+        Select.selectPhrase(selectOptionInStock);
+        Select.selectBox.should("have.value", selectOptionQuantity);                                                                       
         Base.waitLong();
-        cy.get('#selectProductSort').select("--");
-        cy.get('#selectProductSort').should("have.value", "position:asc");              
+        Select.selectPhrase(selectOptionMinMin);
+        Select.selectBox.should("have.value", selectOptionPosition);              
         Base.waitShort();
-        cy.get('#selectProductSort').select("name:asc");
-        cy.get('#selectProductSort').should("have.value", "name:asc");                         
+        Select.selectPhrase(selectOptionName);
+        Select.selectBox.should("have.value", selectOptionName);                         
         Base.waitLong();  
-        cy.get('#selectProductSort').select("position:asc");
-        cy.get('#selectProductSort').should("have.value", "position:asc");               
+        Select.selectPhrase(selectOptionPosition);
+        Select.selectBox.should("have.value", selectOptionPosition);               
         Base.waitShort();
     })
 
@@ -80,20 +87,20 @@ describe("Testy strony http://www.automationpractice.pl/", () =>{
         Home.clickOnWomenTab(); 
         cy.url().should("include", "id_category=3&controller=category");              
                                                                                    
-        cy.get('#layered_category_4').check();                  
-        cy.get('#layered_category_4').should("be.checked");                                  
-        cy.get('#layered_category_4').uncheck();                  
-        cy.get('#layered_category_4').should("not.be.checked");                     
+        Women.checkTops();                  
+        Women.topsCheckbox.should("be.checked");                                  
+        Women.uncheckTops();                  
+        Women.topsCheckbox.should("not.be.checked");                     
 
-        cy.get('#selectProductSort').select("In stock");
-        cy.get('#selectProductSort').should("have.value", "quantity:desc");         
+        Select.selectPhrase(selectOptionInStock);
+        Select.selectBox.should("have.value", selectOptionQuantity);         
                                                          
-        cy.get('#search_query_top').type("przykładowy tekst");                                                     
-        cy.get('#search_query_top').should("have.value", "przykładowy tekst");      
+        Search.typeSearchPhrase();                                                     
+        Search.searchBox.should("have.value", searchPhrase);      
         cy.get('button[name="submit_search"]').click();
-        cy.get("p.alert").should("be.visible");                                     
-        cy.get("p.alert").should("be.visible").and("include.text", "No results");   
-        cy.get('#search_query_top').should("have.class", "search_query");           
-        cy.get('#search_query_top').should("have.css", "margin-right", "1px");      
+        ResultPage.searchAlert.should("be.visible");                                     
+        ResultPage.searchAlert.should("be.visible").and("include.text", noFoundProduct);   
+        Search.searchBox.should("have.class", "search_query");           
+        Search.searchBox.should("have.css", "margin-right", "1px");      
     })
 })                    

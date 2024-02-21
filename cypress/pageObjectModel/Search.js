@@ -8,8 +8,13 @@ class Search {
     }
 
     typeSearchPhrase() {                            
-        this.searchBox.type(searchPhrase);                  // korzystamy z zaimportowanego wzorca                   
+        this.searchBox.type(searchPhrase);              // korzystamy z zaimportowanego wzorca                   
     }
+
+    typeSearchPhraseWithVariable(exampleVariable) {     // tworzymy funkcję, do której w tescie bedziemy mogli przekazac zmienną                  
+        this.searchBox.type(exampleVariable);           // (podobnie jak w python) o nazwie exampleVariable                             
+    }
+    
     clearSearchPhrase() {                            
         this.searchBox.clear();                      
     }

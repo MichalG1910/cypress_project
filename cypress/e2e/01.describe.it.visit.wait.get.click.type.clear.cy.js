@@ -24,7 +24,7 @@ describe("Testy strony http://www.automationpractice.pl/", () =>{           // b
         cy.get('#search_query_top').type("printed dress{enter}");           // pobieramy wyszukiwarkę, wpisujemy tekst i używamy klawisza funkcyjnego {enter} - uruchomi to wyszukiwanie
         cy.wait(1000);                                                      // {enter} zrobi to samo co np.: get('button[name="submit_search"]').click();
         cy.url().should("include", "controller=search&orderby=position&orderway=desc&search_query=printed+dress&submit_search=");   //asercja 
-        cy.get('img[alt="My Shop"').click();
+        cy.get('img[alt="My Shop"]').click();
         cy.wait(1000); 
     })
 
