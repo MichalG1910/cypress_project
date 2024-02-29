@@ -9,6 +9,7 @@ import ResultPage from "../pageObjectModel/ResultPage";                         
 import Select from "../pageObjectModel/Select";                                     // importujemy klasę Select z lokalizacji "../pageObjectModel/Select"
 import { searchPhrase } from "../fixtures/SearchData.json"                          // importujemy wzorcowy tekst z pliku SearchData.json znajdujacego sie w katalogu fixtures
 import { searchPhrasePrintedDress, noFoundProduct, selectOptionInStock, selectOptionQuantity, selectOptionMinMin, selectOptionPosition, selectOptionName } from "../fixtures/SearchData.json"   // w jednym imporcie mozna zawrzec wiecej wzorców
+import { login, password } from "../fixtures/loginData.json"                        // tu importujemy login i hasło z pliku loginData.json
 
 describe("Testy strony http://www.automationpractice.pl/", () =>{           
     it("Wejście na stronę, kliknięcie w zakładkę Contact us", () => {       
@@ -103,4 +104,9 @@ describe("Testy strony http://www.automationpractice.pl/", () =>{
         Search.searchBox.should("have.class", "search_query");           
         Search.searchBox.should("have.css", "margin-right", "1px");      
     })
-})                    
+
+    it("Logowanie do strony automationpractice.pl", () => {         
+        cy.login(login, password);                                      
+    })
+
+})  
