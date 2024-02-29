@@ -1,3 +1,4 @@
+// w cypress mamy możliwość instalacji wielu pluginów https://docs.cypress.io/plugins
 // test uruchomi stronę zawartą w baseUrl ("/" - http://www.automationpractice.pl/) (pamietamy o uruchomeniu w terminalu npx cypress open)
 
 // dodaje bibliotekę, która będzie podpowiadała metody, funkcje do obiektów
